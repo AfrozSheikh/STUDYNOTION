@@ -3,6 +3,7 @@ import {Route, Routes } from "react-router-dom";
 import Home from "./pages/Home"
 import Navbar from "./components/common/Navbar"
 import OpenRoute from "./components/core/Auth/OpenRoute"
+import { useEffect, useState } from "react";
 
 import Login from "./pages/Login"
 import Signup from "./pages/Signup"
@@ -33,7 +34,29 @@ function App() {
 
   
   const { user } = useSelector((state) => state.profile)
+  useEffect(() => {
+    const handleResize = () => {
+      setIsMobile(window.innerWidth <= 768); // Adjust the width as needed
+    };
 
+    handleResize(); // Set initial value
+    window.addEventListener('resize', handleResize);
+
+    return () => {
+      window.removeEventListener('resize', handleResize);
+    };
+  }, []);
+
+  if (isMobile) {
+    return (
+      <div className="flex justify-center items-center h-screen text-center p-6 bg-gray-100">
+        <div>
+          <h1 className="text-3xl mb-4">Desktop Only</h1>
+          <p className="text-lg">This application is only available on desktop devices. Please switch to a desktop to access the site.</p>
+        </div>
+      </div>
+    );
+  }
 
   return (
    <div className="w-screen min-h-screen bg-richblack-900 flex flex-col font-inter">
