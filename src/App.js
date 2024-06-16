@@ -34,6 +34,7 @@ function App() {
 
   
   const { user } = useSelector((state) => state.profile)
+   const [isMobile, setIsMobile] = useState(false);
   useEffect(() => {
     const handleResize = () => {
       setIsMobile(window.innerWidth <= 768); // Adjust the width as needed
